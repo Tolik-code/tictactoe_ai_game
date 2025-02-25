@@ -1,7 +1,7 @@
 """
 Tic Tac Toe Player
 """
-
+import random
 import math
 from itertools import chain
 import copy
@@ -141,6 +141,11 @@ def minimax(board):
         return None
     
     current_player = player(board)
+
+    if all(cells == [EMPTY, EMPTY, EMPTY] for cells in board):
+        allowed_actions = actions(board)
+        return list(allowed_actions)[random.randint(0, len(allowed_actions) - 1)]
+    
     if current_player == X:
         return max_value(board, best_action=None, additional={ 'depth': 1 })[1]
     else:
